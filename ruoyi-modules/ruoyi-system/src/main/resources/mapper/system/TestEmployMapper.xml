@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TestEmployMapper">
+
+    <resultMap type="TestEmploy" id="TestEmployResult">
+        <result property="id"    column="id"    />
+        <result property="employName"    column="employ_name"    />
+    </resultMap>
+
+    <sql id="selectTestEmployVo">
+        select id, employ_name from test_employ
+    </sql>
+
+    <select id="selectTestEmployList" parameterType="TestEmploy" resultMap="TestEmployResult">
+        <include refid="selectTestEmployVo"/>
+        <where>
+            <if test="employName != null  and employName != ''"> and employ_name like concat('%', #{employName}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectTestEmployById" parameterType="Long" resultMap="TestEmployResult">
+        <include refid="selectTestEmployVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTestEmploy" parameterType="TestEmploy">
+        insert into test_employ
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="employName != null">employ_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="employName != null">#{employName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTestEmploy" parameterType="TestEmploy">
+        update test_employ
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="employName != null">employ_name = #{employName},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTestEmployById" parameterType="Long">
+        delete from test_employ where id = #{id}
+    </delete>
+
+    <delete id="deleteTestEmployByIds" parameterType="String">
+        delete from test_employ where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

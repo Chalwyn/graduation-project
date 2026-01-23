@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.EmployeeMapper">
+    
+    <resultMap type="Employee" id="EmployeeResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="gender"    column="gender"    />
+        <result property="birthday"    column="birthday"    />
+        <result property="idCard"    column="idCard"    />
+        <result property="wedlock"    column="wedlock"    />
+        <result property="nationId"    column="nationId"    />
+        <result property="nativePlace"    column="nativePlace"    />
+        <result property="politicId"    column="politicId"    />
+        <result property="email"    column="email"    />
+        <result property="phone"    column="phone"    />
+        <result property="address"    column="address"    />
+        <result property="departmentId"    column="departmentId"    />
+        <result property="jobLevelId"    column="jobLevelId"    />
+        <result property="posId"    column="posId"    />
+        <result property="engageForm"    column="engageForm"    />
+        <result property="tiptopDegree"    column="tiptopDegree"    />
+        <result property="specialty"    column="specialty"    />
+        <result property="school"    column="school"    />
+        <result property="beginDate"    column="beginDate"    />
+        <result property="workState"    column="workState"    />
+        <result property="workID"    column="workID"    />
+        <result property="contractTerm"    column="contractTerm"    />
+        <result property="conversionTime"    column="conversionTime"    />
+        <result property="notWorkDate"    column="notWorkDate"    />
+        <result property="beginContract"    column="beginContract"    />
+        <result property="endContract"    column="endContract"    />
+        <result property="workAge"    column="workAge"    />
+    </resultMap>
+
+    <sql id="selectEmployeeVo">
+        select id, name, gender, birthday, idCard, wedlock, nationId, nativePlace, politicId, email, phone, address, departmentId, jobLevelId, posId, engageForm, tiptopDegree, specialty, school, beginDate, workState, workID, contractTerm, conversionTime, notWorkDate, beginContract, endContract, workAge from employee
+    </sql>
+
+    <select id="selectEmployeeList" parameterType="Employee" resultMap="EmployeeResult">
+        <include refid="selectEmployeeVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="gender != null  and gender != ''"> and gender = #{gender}</if>
+            <if test="birthday != null "> and birthday = #{birthday}</if>
+            <if test="idCard != null  and idCard != ''"> and idCard = #{idCard}</if>
+            <if test="wedlock != null  and wedlock != ''"> and wedlock = #{wedlock}</if>
+            <if test="nationId != null "> and nationId = #{nationId}</if>
+            <if test="nativePlace != null  and nativePlace != ''"> and nativePlace = #{nativePlace}</if>
+            <if test="politicId != null "> and politicId = #{politicId}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="departmentId != null "> and departmentId = #{departmentId}</if>
+            <if test="jobLevelId != null "> and jobLevelId = #{jobLevelId}</if>
+            <if test="posId != null "> and posId = #{posId}</if>
+            <if test="engageForm != null  and engageForm != ''"> and engageForm = #{engageForm}</if>
+            <if test="tiptopDegree != null  and tiptopDegree != ''"> and tiptopDegree = #{tiptopDegree}</if>
+            <if test="specialty != null  and specialty != ''"> and specialty = #{specialty}</if>
+            <if test="school != null  and school != ''"> and school = #{school}</if>
+            <if test="beginDate != null "> and beginDate = #{beginDate}</if>
+            <if test="workState != null  and workState != ''"> and workState = #{workState}</if>
+            <if test="workID != null  and workID != ''"> and workID = #{workID}</if>
+            <if test="contractTerm != null "> and contractTerm = #{contractTerm}</if>
+            <if test="conversionTime != null "> and conversionTime = #{conversionTime}</if>
+            <if test="notWorkDate != null "> and notWorkDate = #{notWorkDate}</if>
+            <if test="beginContract != null "> and beginContract = #{beginContract}</if>
+            <if test="endContract != null "> and endContract = #{endContract}</if>
+            <if test="workAge != null "> and workAge = #{workAge}</if>
+        </where>
+    </select>
+    
+    <select id="selectEmployeeById" parameterType="Long" resultMap="EmployeeResult">
+        <include refid="selectEmployeeVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertEmployee" parameterType="Employee" useGeneratedKeys="true" keyProperty="id">
+        insert into employee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="gender != null">gender,</if>
+            <if test="birthday != null">birthday,</if>
+            <if test="idCard != null">idCard,</if>
+            <if test="wedlock != null">wedlock,</if>
+            <if test="nationId != null">nationId,</if>
+            <if test="nativePlace != null">nativePlace,</if>
+            <if test="politicId != null">politicId,</if>
+            <if test="email != null">email,</if>
+            <if test="phone != null">phone,</if>
+            <if test="address != null">address,</if>
+            <if test="departmentId != null">departmentId,</if>
+            <if test="jobLevelId != null">jobLevelId,</if>
+            <if test="posId != null">posId,</if>
+            <if test="engageForm != null">engageForm,</if>
+            <if test="tiptopDegree != null">tiptopDegree,</if>
+            <if test="specialty != null">specialty,</if>
+            <if test="school != null">school,</if>
+            <if test="beginDate != null">beginDate,</if>
+            <if test="workState != null">workState,</if>
+            <if test="workID != null">workID,</if>
+            <if test="contractTerm != null">contractTerm,</if>
+            <if test="conversionTime != null">conversionTime,</if>
+            <if test="notWorkDate != null">notWorkDate,</if>
+            <if test="beginContract != null">beginContract,</if>
+            <if test="endContract != null">endContract,</if>
+            <if test="workAge != null">workAge,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="gender != null">#{gender},</if>
+            <if test="birthday != null">#{birthday},</if>
+            <if test="idCard != null">#{idCard},</if>
+            <if test="wedlock != null">#{wedlock},</if>
+            <if test="nationId != null">#{nationId},</if>
+            <if test="nativePlace != null">#{nativePlace},</if>
+            <if test="politicId != null">#{politicId},</if>
+            <if test="email != null">#{email},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="address != null">#{address},</if>
+            <if test="departmentId != null">#{departmentId},</if>
+            <if test="jobLevelId != null">#{jobLevelId},</if>
+            <if test="posId != null">#{posId},</if>
+            <if test="engageForm != null">#{engageForm},</if>
+            <if test="tiptopDegree != null">#{tiptopDegree},</if>
+            <if test="specialty != null">#{specialty},</if>
+            <if test="school != null">#{school},</if>
+            <if test="beginDate != null">#{beginDate},</if>
+            <if test="workState != null">#{workState},</if>
+            <if test="workID != null">#{workID},</if>
+            <if test="contractTerm != null">#{contractTerm},</if>
+            <if test="conversionTime != null">#{conversionTime},</if>
+            <if test="notWorkDate != null">#{notWorkDate},</if>
+            <if test="beginContract != null">#{beginContract},</if>
+            <if test="endContract != null">#{endContract},</if>
+            <if test="workAge != null">#{workAge},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEmployee" parameterType="Employee">
+        update employee
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="birthday != null">birthday = #{birthday},</if>
+            <if test="idCard != null">idCard = #{idCard},</if>
+            <if test="wedlock != null">wedlock = #{wedlock},</if>
+            <if test="nationId != null">nationId = #{nationId},</if>
+            <if test="nativePlace != null">nativePlace = #{nativePlace},</if>
+            <if test="politicId != null">politicId = #{politicId},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="departmentId != null">departmentId = #{departmentId},</if>
+            <if test="jobLevelId != null">jobLevelId = #{jobLevelId},</if>
+            <if test="posId != null">posId = #{posId},</if>
+            <if test="engageForm != null">engageForm = #{engageForm},</if>
+            <if test="tiptopDegree != null">tiptopDegree = #{tiptopDegree},</if>
+            <if test="specialty != null">specialty = #{specialty},</if>
+            <if test="school != null">school = #{school},</if>
+            <if test="beginDate != null">beginDate = #{beginDate},</if>
+            <if test="workState != null">workState = #{workState},</if>
+            <if test="workID != null">workID = #{workID},</if>
+            <if test="contractTerm != null">contractTerm = #{contractTerm},</if>
+            <if test="conversionTime != null">conversionTime = #{conversionTime},</if>
+            <if test="notWorkDate != null">notWorkDate = #{notWorkDate},</if>
+            <if test="beginContract != null">beginContract = #{beginContract},</if>
+            <if test="endContract != null">endContract = #{endContract},</if>
+            <if test="workAge != null">workAge = #{workAge},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEmployeeById" parameterType="Long">
+        delete from employee where id = #{id}
+    </delete>
+
+    <delete id="deleteEmployeeByIds" parameterType="String">
+        delete from employee where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
